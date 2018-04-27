@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PersonAdd from "./Components/PersonAdd";
 
 export default class App extends Component {
 
@@ -9,14 +10,24 @@ export default class App extends Component {
         { firstName: 'Alan', lastName: 'Turing' },
         { firstName: 'Alanzo', lastName: 'Church' },
         { firstName: 'Grace', lastName: 'Hopper' }
-      ]
+      ],
+        showAdd:false
     };
   }
+
+
+    toggle = () => {
+        this.setState((prevState) => ({
+            showAdd: !prevState.showAdd
+        }));
+    }
+
 
   render() {
     return (
       <div className="App">
-        I am the app!
+        <button className="addPerson" onClick={()=>{this.toggle()}}>Add Person</button>
+          {this.state.showAdd===true?<PersonAdd/>:''}
       </div>
     );
   }
