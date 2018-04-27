@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PersonAdd from "./Components/PersonAdd";
+import PersonList from "./Components/PersonList";
 
 export default class App extends Component {
 
@@ -18,7 +19,18 @@ export default class App extends Component {
 
     toggle = () => {
         this.setState((prevState) => ({
+            ...prevState,
             showAdd: !prevState.showAdd
+        }));
+    }
+
+    addPerson = ({firstName, lastName}) => {
+        this.setState((prevState) => ({
+            ...prevState,
+            showAdd: false,
+            people: [...prevState.people,
+                {firstName: firstName, lastName: lastName}
+                ]
         }));
     }
 
@@ -27,7 +39,8 @@ export default class App extends Component {
     return (
       <div className="App">
         <button className="addPerson" onClick={()=>{this.toggle()}}>Add Person</button>
-          {this.state.showAdd===true?<PersonAdd/>:''}
+          {this.state.showAdd===true?<PersonAdd addPerson={this.addPerson}/>:''}
+          <PersonList people = {this.state.people}/>
       </div>
     );
   }
